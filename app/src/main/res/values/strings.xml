@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Paquete Scanner</string>
+    <string name="ivierasolution">iVieraSolutions</string>
+    <string name="escanear">Escanear</string>
+    <string name="codigo">Código</string>
+    <string name="provincia">Provincia</string>
+    <string name="municipio">Municipio</string>
+</resources>
