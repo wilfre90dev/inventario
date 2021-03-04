@@ -14,14 +14,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_PERMISOS_CAMARA = 1, CODIGO_INTENT = 2;
     private boolean permisoCamaraConcedido = false, permisoSolicitadoDesdeBoton = false;
     private TextView tvCodigoLeido, tvProvincia, tvNombreSitio;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +40,12 @@ public class MainActivity extends AppCompatActivity {
         tvCodigoLeido = findViewById(R.id.tvCodigoLeido);
         tvProvincia = findViewById(R.id.tvProvincia);
         tvNombreSitio = findViewById(R.id.tvNombreSitio);
-        btnEscanear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!permisoCamaraConcedido) {
-                    Toast.makeText(MainActivity.this, "Por favor permite que la app acceda a la cámara", Toast.LENGTH_SHORT).show();
-                    permisoSolicitadoDesdeBoton = true;
-                    verificarYPedirPermisosDeCamara();
-                    return;
-                }
-                escanear();
-
-            }
-        });
 
     }
 
     public String[] CargarBD(String codigo){
         String provincia="No existe ninguna provincia";
-        String municipio="No existe ningún municipio";
+        String municipio="No existe ningún sitio";
         String [] resultados=new String[2];
 
         AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "sitios.sqlite");
@@ -119,10 +111,60 @@ public class MainActivity extends AppCompatActivity {
 
     }*/
 
-
+    // Abre la activity de escanear
     private void escanear() {
         Intent i = new Intent(MainActivity.this, ActivityEscanear.class);
         startActivityForResult(i, CODIGO_INTENT);
+    }
+
+// En dependencia del texto que tenga el boton v a escanear o a buscar el resultado directo en la BD
+    public void AccionPrincipal(View view) {
+        EditText et=findViewById(R.id.editText);
+        Button btnEscanear=findViewById(R.id.btnEscanear);
+
+        if (btnEscanear.getText().equals("Escanear")) {
+            if (!permisoCamaraConcedido) {
+                Toast.makeText(MainActivity.this, "Por favor permite que la app acceda a la cámara", Toast.LENGTH_SHORT).show();
+                permisoSolicitadoDesdeBoton = true;
+                verificarYPedirPermisosDeCamara();
+                return;
+            }
+            escanear();
+        }
+        else{
+           BuscarPorCodigo(et.getText().toString());
+        }
+
+    }
+
+    // Busca directo en la base de datos segun el texto que tenga el EditText
+    public void BuscarPorCodigo(String codigo){
+        if(codigo.contains("+")){
+            codigo=codigo.replace("+","");
+        }
+
+        String [] datos= CargarBD(codigo);
+
+        tvCodigoLeido.setText(codigo);
+        tvProvincia.setText(datos[0]);
+        tvNombreSitio.setText(datos[1]);
+    }
+
+// Cambia de estado entre Buscar y Escanear
+    public void CambiarEstado(View view){
+        Button btnEscanear=findViewById(R.id.btnEscanear);
+        EditText et=findViewById(R.id.editText);
+        if (btnEscanear.getText().equals("Escanear")){
+            btnEscanear.setText("Buscar");
+            //et.setVisibility(View.VISIBLE);
+            et.setText("");
+        }
+
+        else
+            btnEscanear.setText("Escanear");
+        //et.setVisibility(View.INVISIBLE);
+            et.setText("");
+            btnEscanear.setFocusable(true);
     }
 
 
@@ -141,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                     tvCodigoLeido.setText(codigo);
                     tvProvincia.setText(datos[0]);
                     tvNombreSitio.setText(datos[1]);
+
                 }
             }
         }
@@ -183,4 +226,6 @@ public class MainActivity extends AppCompatActivity {
         // cuando lo denegó anteriormente
         Toast.makeText(MainActivity.this, "No puedes escanear si no das permiso", Toast.LENGTH_SHORT).show();
     }
+
+
 }
