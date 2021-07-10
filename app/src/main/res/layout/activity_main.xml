@@ -10,16 +10,14 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:text="Código leído:"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvCodigoLeido"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.90999997" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvCodigoLeido"
@@ -70,11 +68,12 @@
 
     <TextView
         android:id="@+id/tvNombreSitio"
-        android:layout_width="320dp"
+        android:layout_width="322dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="282dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="270dp"
+        android:layout_marginBottom="217dp"
         android:lines="3"
         android:singleLine="false"
         android:textColor="@android:color/black"
@@ -83,7 +82,8 @@
         app:layout_constraintBottom_toTopOf="@+id/btnEscanear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -102,16 +102,17 @@
     <Button
         android:id="@+id/btnEscanear"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="234dp"
-        android:layout_height="97dp"
+        android:layout_width="235dp"
+        android:layout_height="79dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="#FDD62C"
         android:onClick="AccionPrincipal"
         android:text="@string/escanear"
         android:textColor="#333131"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -132,7 +133,7 @@
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Buscar por código"
         android:inputType="textCapCharacters"
@@ -142,7 +143,7 @@
         app:layout_constraintHorizontal_bias="0.908"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNombreSitio"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.59000003" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton2"
@@ -153,18 +154,11 @@
         android:onClick="CambiarEstado"
         android:textColor="#333131"
         android:tint="#000C0C0C"
-        app:backgroundTint="@color/colorAccent"
+        app:backgroundTint="?android:attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         app:layout_constraintVertical_bias="0.25"
         app:srcCompat="@android:drawable/stat_notify_sync" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="74dp" />
 
 </android.support.constraint.ConstraintLayout>

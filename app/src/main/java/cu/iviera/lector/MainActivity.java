@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
             //System.out.println(provincia);
         }
-         resultados[0] =provincia;
-         resultados[1] =municipio;
+        resultados[0] =provincia;
+        resultados[1] =municipio;
 
         return resultados;
 
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(i, CODIGO_INTENT);
     }
 
-// En dependencia del texto que tenga el boton v a escanear o a buscar el resultado directo en la BD
+    // En dependencia del texto que tenga el boton v a escanear o a buscar el resultado directo en la BD
     public void AccionPrincipal(View view) {
         EditText et=findViewById(R.id.editText);
         Button btnEscanear=findViewById(R.id.btnEscanear);
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             escanear();
         }
         else{
-           BuscarPorCodigo(et.getText().toString());
+            BuscarPorCodigo(et.getText().toString());
         }
 
     }
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         tvNombreSitio.setText(datos[1]);
     }
 
-// Cambia de estado entre Buscar y Escanear
+    // Cambia de estado entre Buscar y Escanear
     public void CambiarEstado(View view){
         Button btnEscanear=findViewById(R.id.btnEscanear);
         EditText et=findViewById(R.id.editText);
@@ -163,8 +163,8 @@ public class MainActivity extends AppCompatActivity {
         else
             btnEscanear.setText("Escanear");
         //et.setVisibility(View.INVISIBLE);
-            et.setText("");
-            btnEscanear.setFocusable(true);
+        et.setText("");
+        btnEscanear.setFocusable(true);
     }
 
 
