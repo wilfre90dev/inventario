@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cu.iviera.lector">
+    package="cu.iviera.inventario">
 
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/icono_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityEscanear"></activity>
-        <activity android:name=".MainActivity"
+        <activity android:name="cu.iviera.inventario.ActivityEscanear"></activity>
+        <activity android:name="cu.iviera.inventario.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

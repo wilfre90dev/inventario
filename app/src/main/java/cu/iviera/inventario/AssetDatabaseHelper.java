@@ -1,4 +1,4 @@
-package cu.iviera.lector;
+package cu.iviera.inventario;
 
 import java.io.File;
 import java.io.FileInputStream;

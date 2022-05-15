@@ -1,4 +1,4 @@
-package cu.iviera.lector;
+package cu.iviera.inventario;
 
 import android.content.ContentValues;
 import android.content.Context;

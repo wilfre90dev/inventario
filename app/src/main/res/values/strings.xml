@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Paquete Scanner</string>
+    <string name="app_name">Inventario Scanner</string>
     <string name="ivierasolution">iVieraSolutions</string>
     <string name="escanear">Escanear</string>
     <string name="codigo">Código</string>

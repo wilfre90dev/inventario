@@ -1,4 +1,4 @@
-package cu.iviera.lector;
+package cu.iviera.inventario;
 
 
 import android.Manifest;
@@ -17,8 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
