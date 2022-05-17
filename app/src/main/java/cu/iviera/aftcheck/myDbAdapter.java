@@ -1,4 +1,4 @@
-package cu.iviera.inventario;
+package cu.iviera.aftcheck;
 
 import android.content.ContentValues;
 import android.content.Context;

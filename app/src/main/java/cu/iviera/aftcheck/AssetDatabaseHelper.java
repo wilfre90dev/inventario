@@ -1,4 +1,4 @@
-package cu.iviera.inventario;
+package cu.iviera.aftcheck;
 
 import java.io.File;
 import java.io.FileInputStream;

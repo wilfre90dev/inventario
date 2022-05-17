@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Inventario'
+rootProject.name='AFT_Check'

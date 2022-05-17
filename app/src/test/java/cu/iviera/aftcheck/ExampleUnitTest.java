@@ -1,4 +1,4 @@
-package cu.iviera.inventario;
+package cu.iviera.aftcheck;
 
 import org.junit.Test;
 
