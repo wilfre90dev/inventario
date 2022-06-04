@@ -32,7 +32,7 @@
                 android:paddingTop="40dp">
 
                 <LinearLayout
-                    android:id="@+id/tab1"
+                    android:id="@+id/ESCANEAR"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -40,23 +40,23 @@
 
                     <TextView
                         android:id="@+id/textView"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="25dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="4dp"
                         android:text="No. Inventario:"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvCodigoLeido"
-                        android:layout_width="320dp"
+                        android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:lines="3"
+                        android:layout_marginBottom="12dp"
+                        android:lines="1"
                         android:singleLine="false"
                         android:textColor="@android:color/black"
                         android:textSize="22sp"
@@ -64,22 +64,23 @@
 
                     <TextView
                         android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginBottom="12dp"
-                        android:text="Provincia:"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Inmovilizado:"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvProvincia"
-                        android:layout_width="320dp"
+                        android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:lines="3"
+                        android:layout_marginBottom="12dp"
+                        android:lines="1"
                         android:singleLine="false"
                         android:textColor="@android:color/black"
                         android:textSize="22sp"
@@ -87,66 +88,128 @@
 
                     <TextView
                         android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginBottom="12dp"
-                        android:text="Nombre del sitio:"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Centro de Costo:"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvNombreSitio"
-                        android:layout_width="322dp"
+                        android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:lines="1"
+                        android:singleLine="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Area:"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:lines="1"
+                        android:singleLine="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Descripción:"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvDescripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="12dp"
                         android:lines="3"
                         android:singleLine="false"
                         android:textColor="@android:color/black"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/editText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:ems="10"
-                        android:hint="Buscar por código"
-                        android:inputType="textCapCharacters"
-                        android:textAllCaps="true" />
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/floatingActionButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
-                        android:clickable="true"
-                        android:onClick="CambiarEstado"
-                        android:textColor="#333131"
-                        android:tint="#000C0C0C"
-                        app:backgroundTint="?android:attr/colorPrimary"
-                        app:srcCompat="@android:drawable/stat_notify_sync" />
+                        <EditText
+                            android:id="@+id/editText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Buscar por código"
+                            android:inputType="textCapCharacters"
+                            android:textAllCaps="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
-                        android:id="@+id/btnEscanear"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="2dp"
-                        android:backgroundTint="@color/colorAccent"
-                        android:onClick="AccionPrincipal"
-                        android:text="@string/escanear"
-                        android:textColor="#333131"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        <Button
+                            android:id="@+id/btnEscanear"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="178dp"
+                            android:layout_height="49dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/colorAccent"
+                            android:onClick="AccionPrincipal"
+                            android:text="@string/escanear"
+                            android:textColor="#FFFFFF"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/floatingActionButton2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:clickable="true"
+                            android:onClick="CambiarEstado"
+                            android:textColor="#333131"
+                            android:tint="#000C0C0C"
+                            app:backgroundTint="?android:attr/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:srcCompat="@android:drawable/stat_notify_sync" />
+                    </android.support.constraint.ConstraintLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tab2"
+                    android:id="@+id/AFTs"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -154,7 +217,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tab3"
+                    android:id="@+id/OPCIONES"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
