@@ -8,6 +8,7 @@
     tools:context=".MainActivity">
 
     <TabHost
+        android:id="@+id/tabHost"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +24,10 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:foregroundTint="#EDE5E5"
+                android:scrollbarStyle="outsideInset"
+                android:scrollbarThumbHorizontal="@color/icon_background" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -32,11 +36,10 @@
                 android:paddingTop="40dp">
 
                 <LinearLayout
-                    android:id="@+id/ESCANEAR"
+                    android:id="@+id/tabEscanear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textView"
@@ -50,7 +53,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvCodigoLeido"
+                        android:id="@+id/tvInventario"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginStart="8dp"
@@ -74,7 +77,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvProvincia"
+                        android:id="@+id/tvInmovilizado"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginStart="8dp"
@@ -117,7 +120,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="4dp"
-                        android:text="Area:"
+                        android:text="Área:"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -169,6 +172,7 @@
                             android:ems="10"
                             android:hint="Buscar por código"
                             android:inputType="textCapCharacters"
+                            android:textAlignment="center"
                             android:textAllCaps="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -209,7 +213,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/AFTs"
+                    android:id="@+id/tabAfts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -217,10 +221,65 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/OPCIONES"
+                    android:id="@+id/tabOpciones"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Centro de Costo:"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spCentroCosto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="Área:"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/btnGuardar"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="178dp"
+                            android:layout_height="49dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/colorAccent"
+                            android:onClick="AccionPrincipal"
+                            android:text="@string/escanear"
+                            android:textColor="#FFFFFF"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
 
                 </LinearLayout>
             </FrameLayout>

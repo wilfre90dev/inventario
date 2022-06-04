@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +36,29 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button btnEscanear = findViewById(R.id.btnEscanear);
-        tvCodigoLeido = findViewById(R.id.tvCodigoLeido);
-        tvProvincia = findViewById(R.id.tvProvincia);
+        tvCodigoLeido = findViewById(R.id.tvInventario);
+        tvProvincia = findViewById(R.id.tvInmovilizado);
         tvNombreSitio = findViewById(R.id.tvNombreSitio);
 
+        TabHost th=(TabHost) findViewById(R.id.tabHost);
+        th.setup();
+
+        TabHost.TabSpec ts1=th.newTabSpec("tab1");
+        ts1.setContent(R.id.tabEscanear);
+        ts1.setIndicator("ESCANEAR");
+        th.addTab(ts1);
+
+        th.setup();
+        TabHost.TabSpec ts2=th.newTabSpec("tab2");
+        ts2.setContent(R.id.tabAfts);
+        ts2.setIndicator("AFTs");
+        th.addTab(ts2);
+
+        th.setup();
+        TabHost.TabSpec ts3=th.newTabSpec("tab3");
+        ts3.setContent(R.id.tabOpciones);
+        ts3.setIndicator("OPCIONES");
+        th.addTab(ts3);
     }
 
     public String[] CargarBD(String codigo){
@@ -56,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         String sql="SELECT DISTINCT sitios.Provincia, sitios.Municipio FROM sitios WHERE sitios.BoxNo = \'"+codigo+"\'";
 
         Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
-        //TextView tv= findViewById(R.id.tvCodigoLeido);
+        //TextView tv= findViewById(R.id.tvInventario);
 
         while (cursor.moveToNext()) {
             provincia = cursor.getString(cursor.getColumnIndex("Provincia"));
@@ -92,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor=dbHelper.getWritableDatabase().query("sitios",select,"BoxNo=?",where, null,null,null, "1");
 
         //Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql, codigo,null);
-        //TextView tv= findViewById(R.id.tvCodigoLeido);
+        //TextView tv= findViewById(R.id.tvInventario);
 
         while (cursor.moveToNext()) {
             provincia = cursor.getString(cursor.getColumnIndex("Provincia"));
@@ -102,20 +122,20 @@ public class MainActivity extends AppCompatActivity {
         }
         resultados[0] =provincia;
         resultados[1] =municipio;
-        tvCodigoLeido.setText(codigo);
-        tvProvincia.setText(provincia);
+        tvInventario.setText(codigo);
+        tvInmovilizado.setText(provincia);
         tvNombreSitio.setText(municipio);
         return resultados;
 
     }*/
 
-    // Abre la activity de escanear
+    // Abre la activity de tabEscanear
     private void escanear() {
         Intent i = new Intent(MainActivity.this, ActivityEscanear.class);
         startActivityForResult(i, CODIGO_INTENT);
     }
 
-    // En dependencia del texto que tenga el boton v a escanear o a buscar el resultado directo en la BD
+    // En dependencia del texto que tenga el boton v a tabEscanear o a buscar el resultado directo en la BD
     public void AccionPrincipal(View view) {
         EditText et=findViewById(R.id.editText);
         Button btnEscanear=findViewById(R.id.btnEscanear);
@@ -222,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
     private void permisoDeCamaraDenegado() {
         // Esto se llama cuando el usuario hace click en "Denegar" o
         // cuando lo denegó anteriormente
-        Toast.makeText(MainActivity.this, "No puedes escanear si no das permiso", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "No puedes tabEscanear si no das permiso", Toast.LENGTH_SHORT).show();
     }
 
 
