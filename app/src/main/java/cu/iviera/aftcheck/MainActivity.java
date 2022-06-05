@@ -12,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,12 +21,15 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_PERMISOS_CAMARA = 1, CODIGO_INTENT = 2;
     private boolean permisoCamaraConcedido = false, permisoSolicitadoDesdeBoton = false;
     private TextView tvCodigoLeido, tvProvincia, tvNombreSitio;
-
+    ArrayList<AFTs> listaAFTs=new ArrayList<>();
+    RecyclerView recyclerAFTs;
 
 
     @Override
@@ -40,26 +45,49 @@ public class MainActivity extends AppCompatActivity {
         tvProvincia = findViewById(R.id.tvInmovilizado);
         tvNombreSitio = findViewById(R.id.tvNombreSitio);
 
+        //Se define el TabHost
         TabHost th=(TabHost) findViewById(R.id.tabHost);
-        th.setup();
 
+        //Configurando tab 1
+        th.setup();
         TabHost.TabSpec ts1=th.newTabSpec("tab1");
         ts1.setContent(R.id.tabEscanear);
         ts1.setIndicator("ESCANEAR");
         th.addTab(ts1);
 
+        //Configurando tab 2
         th.setup();
         TabHost.TabSpec ts2=th.newTabSpec("tab2");
         ts2.setContent(R.id.tabAfts);
         ts2.setIndicator("AFTs");
         th.addTab(ts2);
 
+        //Configurando tab 3
         th.setup();
         TabHost.TabSpec ts3=th.newTabSpec("tab3");
         ts3.setContent(R.id.tabOpciones);
         ts3.setIndicator("OPCIONES");
         th.addTab(ts3);
+
+        //Configuracion del RecyclerView de AFTs
+        recyclerAFTs= (RecyclerView) findViewById(R.id.rvRecyclerId);
+        recyclerAFTs.setLayoutManager(new LinearLayoutManager(this));
+
+       LlenarAFTs();
+//
+        AdaptadorAFTs adaptadorAFTs=new AdaptadorAFTs(listaAFTs);
+        recyclerAFTs.setAdapter(adaptadorAFTs);
+
     }
+
+    public void LlenarAFTs(){
+        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", true));
+        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", false));
+        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", true));
+        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", false));
+        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", true));
+        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", false));
+        }
 
     public String[] CargarBD(String codigo){
         String provincia="No existe ninguna provincia";
