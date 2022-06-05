@@ -28,9 +28,9 @@ public class AdaptadorAFTs extends RecyclerView.Adapter<AdaptadorAFTs.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull AdaptadorAFTs.ViewHolderAFTs viewHolderAFTs, int i) {
-        String linea1= "<b>No.Inv: </b>"+listaAFTs.get(i).getInventario()+"\t \t \t \t <b>C. Costo: </b>"+ listaAFTs.get(i).getCentroCosto();
-        String linea2= "<b>Inmov: </b>"+listaAFTs.get(i).getInmovilizado()+"\t \t \t \t <b>Area: </b>"+listaAFTs.get(i).getArea();
-        String linea3= "<b>Descrip: </b>"+listaAFTs.get(i).getDescripcion();
+        String linea1= "<u><b>No.Inv:</b></u> "+listaAFTs.get(i).getInventario()+"\t \t \t \t <u><b>C. Costo:</b></u> "+ listaAFTs.get(i).getCentroCosto();
+        String linea2= "<u><b>Inmov:</b></u> "+listaAFTs.get(i).getInmovilizado()+"\t \t \t \t <u><b>Area:</b></u> "+listaAFTs.get(i).getArea();
+        String linea3= "<u><b>Descrip:</b></u> "+listaAFTs.get(i).getDescripcion();
 
         viewHolderAFTs.linea1.setText(Html.fromHtml(linea1));
         viewHolderAFTs.linea2.setText(Html.fromHtml(linea2));
