@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,49 +24,46 @@
         android:orientation="vertical"
         android:paddingLeft="5dp">
 
-      <TableLayout
+      <android.support.constraint.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvLinea1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem[1]" />
 
-          <TextView
-              android:id="@+id/tvLinea1"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingRight="30dp"
-              tools:text="@tools:sample/lorem[1]" />
+        <TextView
+            android:id="@+id/tvLinea2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem[1]" />
 
-          <TextView
-              android:id="@+id/tvLinea2"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textAlignment="viewEnd"
-              tools:text="@tools:sample/lorem[1]" />
-        </TableRow>
+        <TextView
+            android:id="@+id/tvLinea3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLinea1"
+            tools:text="@tools:sample/lorem[1]" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-          <TextView
-              android:id="@+id/tvLinea3"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingRight="30dp"
-              tools:text="@tools:sample/lorem[1]" />
-
-          <TextView
-              android:id="@+id/tvLinea4"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textAlignment="viewEnd"
-              tools:text="@tools:sample/lorem[1]" />
-        </TableRow>
-
-      </TableLayout>
+        <TextView
+            android:id="@+id/tvLinea4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLinea2"
+            tools:text="@tools:sample/lorem[1]" />
+      </android.support.constraint.ConstraintLayout>
 
       <TextView
           android:id="@+id/tvLinea5"
