@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -72,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
         //Configuracion del RecyclerView de AFTs
         recyclerAFTs= (RecyclerView) findViewById(R.id.rvRecyclerId);
         recyclerAFTs.setLayoutManager(new LinearLayoutManager(this));
+
+        //Anadir linea para separar items
+        recyclerAFTs.addItemDecoration(new DividerItemDecoration(recyclerAFTs.getContext(), DividerItemDecoration.VERTICAL));
+
 
        LlenarAFTs();
 //
