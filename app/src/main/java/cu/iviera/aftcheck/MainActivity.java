@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnEscanear = findViewById(R.id.btnEscanear);
         tvCodigoLeido = findViewById(R.id.tvInventario);
         tvProvincia = findViewById(R.id.tvInmovilizado);
-        tvNombreSitio = findViewById(R.id.tvNombreSitio);
+        tvNombreSitio = findViewById(R.id.tvCentroCosto);
 
         //Se define el TabHost
         TabHost th=(TabHost) findViewById(R.id.tabHost);
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         resultados[1] =municipio;
         tvInventario.setText(codigo);
         tvInmovilizado.setText(provincia);
-        tvNombreSitio.setText(municipio);
+        tvCentroCosto.setText(municipio);
         return resultados;
 
     }*/
