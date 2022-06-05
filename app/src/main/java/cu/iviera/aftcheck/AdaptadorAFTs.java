@@ -2,6 +2,7 @@ package cu.iviera.aftcheck;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,13 @@ public class AdaptadorAFTs extends RecyclerView.Adapter<AdaptadorAFTs.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull AdaptadorAFTs.ViewHolderAFTs viewHolderAFTs, int i) {
-        viewHolderAFTs.linea1.setText("No.Inv: "+listaAFTs.get(i).getInventario()+" --  Inmov: +"+listaAFTs.get(i).getInmovilizado());
-        viewHolderAFTs.linea2.setText("C. Costo: "+listaAFTs.get(i).getCentroCosto()+" --  Area: +"+listaAFTs.get(i).getArea());
-        viewHolderAFTs.linea3.setText("Descrip: "+listaAFTs.get(i).getDescripcion());
+        String linea1= "<b>No.Inv: </b>"+listaAFTs.get(i).getInventario()+"\t \t \t \t <b>Inmov: </b>"+ listaAFTs.get(i).getCentroCosto();
+        String linea2= "<b>C. Costo: </b>"+listaAFTs.get(i).getInmovilizado()+"\t \t \t \t <b>Area: </b>"+listaAFTs.get(i).getArea();
+        String linea3= "<b>Descrip: </b>"+listaAFTs.get(i).getDescripcion();
+
+        viewHolderAFTs.linea1.setText(Html.fromHtml(linea1));
+        viewHolderAFTs.linea2.setText(Html.fromHtml(linea2));
+        viewHolderAFTs.linea3.setText(Html.fromHtml(linea3));
         if (listaAFTs.get(i).isChecked) {
             viewHolderAFTs.imgCheck.setImageResource(R.drawable.checked);
         } else {
