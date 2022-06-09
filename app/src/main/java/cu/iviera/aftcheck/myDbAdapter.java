@@ -61,8 +61,8 @@ public class myDbAdapter {
 
     static class myDbHelper extends SQLiteOpenHelper
     {
-        private static final String DATABASE_NAME = "sitios.sqlite";    // Database Name
-        private static final String TABLE_NAME = "sitios";   // Table Name
+        private static final String DATABASE_NAME = "afts.sqlite";    // Database Name
+        private static final String TABLE_NAME = "afts";   // Table Name
         private static final int DATABASE_Version = 1;    // Database Version
         private static final String UID="_id";     // Column I (Primary Key)
         private static final String NAME = "Name";    //Column II

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_PERMISOS_CAMARA = 1, CODIGO_INTENT = 2;
     private boolean permisoCamaraConcedido = false, permisoSolicitadoDesdeBoton = false;
-    private TextView tvCodigoLeido, tvProvincia, tvNombreSitio;
+    private TextView tvInventario, tvInmovilizado, tvDescripcion, tvArea, tvCentroCosto;
     ArrayList<AFTs> listaAFTs=new ArrayList<>();
     RecyclerView recyclerAFTs;
 
@@ -42,9 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button btnEscanear = findViewById(R.id.btnEscanear);
-        tvCodigoLeido = findViewById(R.id.tvInventario);
-        tvProvincia = findViewById(R.id.tvInmovilizado);
-        tvNombreSitio = findViewById(R.id.tvCentroCosto);
+        tvInventario = findViewById(R.id.tvInventario);
+        tvInmovilizado = findViewById(R.id.tvInmovilizado);
+        tvDescripcion = findViewById(R.id.tvDescripcion);
+        tvArea = findViewById(R.id.tvArea);
+        tvCentroCosto = findViewById(R.id.tvCentroCosto);
 
         //Se define el TabHost
         TabHost th=(TabHost) findViewById(R.id.tabHost);
@@ -95,30 +97,36 @@ public class MainActivity extends AppCompatActivity {
         }
 
     public String[] CargarBD(String codigo){
-        String provincia="No existe ninguna provincia";
-        String municipio="No existe ningún sitio";
-        String [] resultados=new String[2];
+        String inventario="No se encuentra";
+        String inmovilizado="No se encuentra";
+        String descripcion="No se encuentra";
+        String checked="";
+        String [] resultados=new String[5];
 
-        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "sitios.sqlite");
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
         try {
             dbHelper.importIfNotExist();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String sql="SELECT DISTINCT sitios.Provincia, sitios.Municipio FROM sitios WHERE sitios.BoxNo = \'"+codigo+"\'";
+        String sql="SELECT DISTINCT * FROM afts WHERE afts.inventario = \'"+codigo+"\'";
 
         Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
         //TextView tv= findViewById(R.id.tvInventario);
 
         while (cursor.moveToNext()) {
-            provincia = cursor.getString(cursor.getColumnIndex("Provincia"));
-            municipio = cursor.getString(cursor.getColumnIndex("Municipio"));
+            inventario = cursor.getString(cursor.getColumnIndex("inventario"));
+            inmovilizado = cursor.getString(cursor.getColumnIndex("inmovilizado"));
+            descripcion = cursor.getString(cursor.getColumnIndex("descripcion"));
+            checked = cursor.getString(cursor.getColumnIndex("checked"));
 
             //System.out.println(provincia);
         }
-        resultados[0] =provincia;
-        resultados[1] =municipio;
+        resultados[0] =inventario;
+        resultados[1] =inmovilizado;
+        resultados[2] =descripcion;
+        resultados[3] = checked;
 
         return resultados;
 
@@ -190,15 +198,11 @@ public class MainActivity extends AppCompatActivity {
 
     // Busca directo en la base de datos segun el texto que tenga el EditText
     public void BuscarPorCodigo(String codigo){
-        if(codigo.contains("+")){
-            codigo=codigo.replace("+","");
-        }
-
         String [] datos= CargarBD(codigo);
 
-        tvCodigoLeido.setText(codigo);
-        tvProvincia.setText(datos[0]);
-        tvNombreSitio.setText(datos[1]);
+        tvInventario.setText(codigo);
+        tvInmovilizado.setText(datos[1]);
+        tvDescripcion.setText(datos[2]);
     }
 
     // Cambia de estado entre Buscar y Escanear
@@ -225,15 +229,12 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
                     String codigo = data.getStringExtra("codigo");
-                    if(codigo.contains("+")){
-                        codigo=codigo.replace("+","");
-                    }
 
                     String [] datos= CargarBD(codigo);
 
-                    tvCodigoLeido.setText(codigo);
-                    tvProvincia.setText(datos[0]);
-                    tvNombreSitio.setText(datos[1]);
+                    tvInventario.setText(codigo);
+                    tvInmovilizado.setText(datos[1]);
+                    tvDescripcion.setText(datos[2]);
 
                 }
             }
@@ -275,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
     private void permisoDeCamaraDenegado() {
         // Esto se llama cuando el usuario hace click en "Denegar" o
         // cuando lo denegó anteriormente
-        Toast.makeText(MainActivity.this, "No puedes tabEscanear si no das permiso", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "No puedes usar la camara si no das permiso", Toast.LENGTH_SHORT).show();
     }
 
 
