@@ -82,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
        LlenarAFTs();
 
-        AdaptadorAFTs adaptadorAFTs=new AdaptadorAFTs(listaAFTs);
-        recyclerAFTs.setAdapter(adaptadorAFTs);
+       ActualizarRecycler();
 
     }
 
@@ -251,6 +250,13 @@ public class MainActivity extends AppCompatActivity {
        // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
         dbHelper.getWritableDatabase().execSQL(sql);
         LlenarAFTs();
+        ActualizarRecycler();
+    }
+
+    public void ActualizarRecycler(){
+        AdaptadorAFTs adaptadorAFTs=new AdaptadorAFTs(listaAFTs);
+        recyclerAFTs.setAdapter(adaptadorAFTs);
+        adaptadorAFTs.notifyDataSetChanged();
     }
 
 
