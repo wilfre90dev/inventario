@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
 
        LlenarAFTs();
-//
+
         AdaptadorAFTs adaptadorAFTs=new AdaptadorAFTs(listaAFTs);
         recyclerAFTs.setAdapter(adaptadorAFTs);
 
@@ -95,10 +95,11 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String sql = "SELECT DISTINCT * FROM afts";
+        String sql = "SELECT * FROM afts";
 
         Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
         //TextView tv= findViewById(R.id.tvInventario);
+        listaAFTs.clear();
 
         while (cursor.moveToNext()) {
             listaAFTs.add(new AFTs(cursor.getString(cursor.getColumnIndex("inventario")),
@@ -216,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
         tvInventario.setText(codigo);
         tvInmovilizado.setText(datos[1]);
         tvDescripcion.setText(datos[2]);
+
+        ActualizarAFTs(codigo);
     }
 
     // Cambia de estado entre Buscar y Escanear
@@ -235,6 +238,21 @@ public class MainActivity extends AppCompatActivity {
         btnEscanear.setFocusable(true);
     }
 
+    public void ActualizarAFTs (String codigo){
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
+        try {
+            dbHelper.importIfNotExist();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String sql="UPDATE afts SET checked=1 WHERE afts.inventario = \'"+codigo+"\'";
+
+       // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
+        dbHelper.getWritableDatabase().execSQL(sql);
+        LlenarAFTs();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -248,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                     tvInventario.setText(codigo);
                     tvInmovilizado.setText(datos[1]);
                     tvDescripcion.setText(datos[2]);
-
+                    ActualizarAFTs(codigo);
                 }
             }
         }
