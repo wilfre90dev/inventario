@@ -6,12 +6,12 @@ public class AFTs {
     String centroCosto;
     String area;
     String descripcion;
-    boolean isChecked;
+    int isChecked;
 
     public AFTs() {
     }
 
-    public AFTs(String inventario, String inmovilizado, String centroCosto, String area, String descripcion, boolean isChecked) {
+    public AFTs(String inventario, String inmovilizado, String centroCosto, String area, String descripcion, int isChecked) {
         this.inventario = inventario;
         this.inmovilizado = inmovilizado;
         this.centroCosto = centroCosto;
@@ -60,11 +60,11 @@ public class AFTs {
         this.descripcion = descripcion;
     }
 
-    public boolean isChecked() {
+    public int isChecked() {
         return isChecked;
     }
 
-    public void setChecked(boolean checked) {
+    public void setChecked(int checked) {
         isChecked = checked;
     }
 }

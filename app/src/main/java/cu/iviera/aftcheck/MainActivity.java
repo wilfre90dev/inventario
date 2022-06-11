@@ -87,14 +87,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void LlenarAFTs(){
-        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", true));
-        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", false));
-        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", true));
-        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", false));
-        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", true));
-        listaAFTs.add(new AFTs("20_249_112075", "3200230704", "243", "STA222", "2490 NOTEBOOK DELLV1710CD / 800GHZ / 1.8MHZ / 120GB", false));
+    public void LlenarAFTs() {
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
+        try {
+            dbHelper.importIfNotExist();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        String sql = "SELECT DISTINCT * FROM afts";
+
+        Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
+        //TextView tv= findViewById(R.id.tvInventario);
+
+        while (cursor.moveToNext()) {
+            listaAFTs.add(new AFTs(cursor.getString(cursor.getColumnIndex("inventario")),
+                    cursor.getString(cursor.getColumnIndex("inmovilizado")),
+                    "243", "STA222",
+                    cursor.getString(cursor.getColumnIndex("descripcion")),
+                    cursor.getInt(cursor.getColumnIndex("checked"))));
+        }
+    }
 
     public String[] CargarBD(String codigo){
         String inventario="No se encuentra";

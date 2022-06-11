@@ -39,7 +39,7 @@ public class AdaptadorAFTs extends RecyclerView.Adapter<AdaptadorAFTs.ViewHolder
         viewHolderAFTs.linea3.setText(Html.fromHtml(linea3));
         viewHolderAFTs.linea4.setText(Html.fromHtml(linea4));
         viewHolderAFTs.linea5.setText(Html.fromHtml(linea5));
-        if (listaAFTs.get(i).isChecked) {
+        if (listaAFTs.get(i).isChecked==1) {
             viewHolderAFTs.imgCheck.setImageResource(R.drawable.checked);
         } else {
             viewHolderAFTs.imgCheck.setImageResource(R.drawable.nochecked);
