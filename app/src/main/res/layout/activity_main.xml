@@ -33,7 +33,7 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="50dp">
+                android:paddingTop="40dp">
 
                 <LinearLayout
                     android:id="@+id/tabEscanear"
@@ -167,10 +167,10 @@
 
                         <EditText
                             android:id="@+id/editText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="220dp"
+                            android:layout_height="45dp"
                             android:ems="10"
-                            android:hint="Buscar por código"
+                            android:hint="Buscar por No. Inventario"
                             android:inputType="textCapCharacters"
                             android:textAlignment="center"
                             android:textAllCaps="true"
@@ -276,8 +276,8 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="16dp"
                             android:backgroundTint="@color/colorAccent"
-                            android:onClick="AccionPrincipal"
-                            android:text="@string/escanear"
+                            android:onClick="Contact"
+                            android:text="@string/guardar"
                             android:textColor="#FFFFFF"
                             android:textSize="24sp"
                             android:textStyle="bold"

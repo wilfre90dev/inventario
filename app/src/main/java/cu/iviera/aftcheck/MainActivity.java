@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -207,6 +208,13 @@ public class MainActivity extends AppCompatActivity {
             BuscarPorCodigo(et.getText().toString());
         }
 
+    }
+    // Envia un correo de contacto
+   public void Contact(View view) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto","ines.viera@etecsa.cu,alexy.lorenzo@etecsa.cu", null));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Contacto de AFT Check");
+        startActivity(Intent.createChooser(intent, "Elija un cliente de correo:"));
     }
 
     // Busca directo en la base de datos segun el texto que tenga el EditText
