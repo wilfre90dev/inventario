@@ -33,7 +33,7 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="40dp">
+                android:paddingTop="50dp">
 
                 <LinearLayout
                     android:id="@+id/tabEscanear"
@@ -221,7 +221,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rvRecyclerId"
                         android:layout_width="match_parent"
-                        android:layout_height="533dp"
+                        android:layout_height="580dp"
                         tools:listitem="@layout/recycler_view_item" />
                 </LinearLayout>
 
