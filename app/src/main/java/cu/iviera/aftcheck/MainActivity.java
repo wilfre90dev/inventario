@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         //Anadir linea para separar items
         recyclerAFTs.addItemDecoration(new DividerItemDecoration(recyclerAFTs.getContext(), DividerItemDecoration.VERTICAL));
 
+        LlenarSpinners();
+        LlenarAFTs();
 
-       LlenarAFTs();
-       LlenarSpinners();
        ActualizarRecycler();
 
     }
@@ -101,7 +101,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String sql = "SELECT * FROM afts";
+        spArea= (Spinner) findViewById(R.id.spArea);
+        spCentroCosto= (Spinner) findViewById(R.id.spCentroCosto);
+        String sql= "SELECT * FROM afts WHERE afts.area ='" +spArea.getSelectedItem().toString()+ "' AND afts.centroCosto ='"+spCentroCosto.getSelectedItem().toString()+ "'";
+
 
         Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
         //TextView tv= findViewById(R.id.tvInventario);
@@ -171,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String sql="SELECT DISTINCT * FROM afts WHERE afts.inventario = \'"+codigo+"\'";
+      String sql="SELECT DISTINCT * FROM afts WHERE afts.inventario = \'"+codigo+"\'";
 
 //        String sql= "SELECT DISTINCT * FROM afts WHERE afts.inventario = '" +codigo+ "' AND afts.area ='" +spArea.getSelectedItem().toString()+ "' AND afts.centroCosto ='"+spCentroCosto.getSelectedItem().toString()+ "'";
 
