@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             listaAFTs.add(new AFTs(cursor.getString(cursor.getColumnIndex("inventario")),
                     cursor.getString(cursor.getColumnIndex("inmovilizado")),
-                    "243", "STA222",
+                    cursor.getString(cursor.getColumnIndex("centroCosto")),
+                    cursor.getString(cursor.getColumnIndex("area")),
                     cursor.getString(cursor.getColumnIndex("descripcion")),
                     cursor.getInt(cursor.getColumnIndex("checked"))));
         }
@@ -115,7 +116,9 @@ public class MainActivity extends AppCompatActivity {
         String inmovilizado="No se encuentra";
         String descripcion="No se encuentra";
         String checked="";
-        String [] resultados=new String[5];
+        String area="";
+        String centroCosto="";
+        String [] resultados=new String[6];
 
         AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
         try {
@@ -134,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
             inmovilizado = cursor.getString(cursor.getColumnIndex("inmovilizado"));
             descripcion = cursor.getString(cursor.getColumnIndex("descripcion"));
             checked = cursor.getString(cursor.getColumnIndex("checked"));
+            area = cursor.getString(cursor.getColumnIndex("area"));
+            centroCosto = cursor.getString(cursor.getColumnIndex("centroCosto"));
 
             //System.out.println(provincia);
         }
@@ -141,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
         resultados[1] =inmovilizado;
         resultados[2] =descripcion;
         resultados[3] = checked;
+        resultados[4] = area;
+        resultados[5] = centroCosto;
 
         return resultados;
 
@@ -224,6 +231,8 @@ public class MainActivity extends AppCompatActivity {
         tvInventario.setText(codigo);
         tvInmovilizado.setText(datos[1]);
         tvDescripcion.setText(datos[2]);
+        tvArea.setText(datos[4]);
+        tvCentroCosto.setText(datos[5]);
 
         ActualizarAFTs(codigo);
     }
@@ -280,6 +289,8 @@ public class MainActivity extends AppCompatActivity {
                     tvInventario.setText(codigo);
                     tvInmovilizado.setText(datos[1]);
                     tvDescripcion.setText(datos[2]);
+                    tvArea.setText(datos[4]);
+                    tvCentroCosto.setText(datos[5]);
                     ActualizarAFTs(codigo);
                 }
             }
