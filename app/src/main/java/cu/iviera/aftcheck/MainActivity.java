@@ -339,6 +339,17 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
                     String codigo = data.getStringExtra("codigo");
+                    if(codigo.contains(":")){
+                        /*  No. Inventario: 20_242_005768
+                            Inmovilizado: 300496964
+                            Centro Costo: 50OP200243
+                            Area: STA105
+                            Descripcion: BEEPERS PIN 5159*/
+
+                    //Divide el QR escaneado por saltos de linea, quedando en la primera posicion "No. Inventario: 20_242_005768", despues se elimina "No. Inventario: "
+                        String inventario = codigo.split("\n")[0].replace("No. Inventario: ", "");
+                        codigo=inventario;
+                    }
 
                     String [] datos= CargarBD(codigo);
 
