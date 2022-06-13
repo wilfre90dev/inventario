@@ -31,7 +31,7 @@ public class AdaptadorAFTs extends RecyclerView.Adapter<AdaptadorAFTs.ViewHolder
         String linea1= "<u><b>No.Inv:</b></u> "+listaAFTs.get(i).getInventario();
         String linea2= "<u><b>Area:</b></u> "+listaAFTs.get(i).getArea();
         String linea3= "<u><b>Inmov:</b></u> "+listaAFTs.get(i).getInmovilizado();
-        String linea4= "<u><b>C. Costo:</b></u> "+ listaAFTs.get(i).getCentroCosto();
+        String linea4= "<u><b>C.Costo:</b></u> "+ listaAFTs.get(i).getCentroCosto();
         String linea5= "<u><b>Descrip:</b></u> "+listaAFTs.get(i).getDescripcion();
 
         viewHolderAFTs.linea1.setText(Html.fromHtml(linea1));

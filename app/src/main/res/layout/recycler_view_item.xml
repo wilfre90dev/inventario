@@ -35,14 +35,14 @@
               android:id="@+id/tvLinea1"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:paddingRight="30dp"
+              android:paddingRight="10dp"
               tools:text="@tools:sample/lorem[1]" />
 
           <TextView
               android:id="@+id/tvLinea2"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textAlignment="viewEnd"
+              android:textAlignment="gravity"
               tools:text="@tools:sample/lorem[1]" />
         </TableRow>
 
@@ -54,14 +54,14 @@
               android:id="@+id/tvLinea3"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:paddingRight="30dp"
+              android:paddingRight="10dp"
               tools:text="@tools:sample/lorem[1]" />
 
           <TextView
               android:id="@+id/tvLinea4"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textAlignment="viewEnd"
+              android:textAlignment="gravity"
               tools:text="@tools:sample/lorem[1]" />
         </TableRow>
 
