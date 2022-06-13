@@ -17,6 +17,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerAFTs;
 
     Spinner spArea, spCentroCosto;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +86,25 @@ public class MainActivity extends AppCompatActivity {
         //Anadir linea para separar items
         recyclerAFTs.addItemDecoration(new DividerItemDecoration(recyclerAFTs.getContext(), DividerItemDecoration.VERTICAL));
 
+        spArea= (Spinner) findViewById(R.id.spArea);
+        spCentroCosto= (Spinner) findViewById(R.id.spCentroCosto);
+
         LlenarSpinners();
         LlenarAFTs();
 
        ActualizarRecycler();
+
+       spArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               LlenarAFTs();
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> parent) {
+
+           }
+       });
 
     }
 
@@ -101,8 +116,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        spArea= (Spinner) findViewById(R.id.spArea);
-        spCentroCosto= (Spinner) findViewById(R.id.spCentroCosto);
         String sql= "SELECT * FROM afts WHERE afts.area ='" +spArea.getSelectedItem().toString()+ "' AND afts.centroCosto ='"+spCentroCosto.getSelectedItem().toString()+ "'";
 
 
@@ -122,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Llena los Spinners de las opciones con un una lista de areas y centros de costo
     public void LlenarSpinners() {
-        spArea= (Spinner) findViewById(R.id.spArea);
-        spCentroCosto= (Spinner) findViewById(R.id.spCentroCosto);
 
         AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
         try {
@@ -162,10 +173,6 @@ public class MainActivity extends AppCompatActivity {
         String area="";
         String centroCosto="";
         String [] resultados=new String[6];
-
-        spArea= (Spinner) findViewById(R.id.spArea);
-        spCentroCosto= (Spinner) findViewById(R.id.spCentroCosto);
-
 
         AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
         try {
