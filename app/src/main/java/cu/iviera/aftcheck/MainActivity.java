@@ -17,8 +17,10 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +33,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean permisoCamaraConcedido = false, permisoSolicitadoDesdeBoton = false;
     private TextView tvInventario, tvInmovilizado, tvDescripcion, tvArea, tvCentroCosto;
     ArrayList<AFTs> listaAFTs=new ArrayList<>();
+    ArrayList<String> listaCentroCosto=new ArrayList<>();
+    ArrayList<String> listaAreas=new ArrayList<>();
     RecyclerView recyclerAFTs;
+
+    Spinner spArea, spCentroCosto;
 
 
     @Override
@@ -82,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 
        LlenarAFTs();
-
+       LlenarSpinners();
        ActualizarRecycler();
 
     }
@@ -111,6 +117,40 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Llena los Spinners de las opciones con un una lista de areas y centros de costo
+    public void LlenarSpinners() {
+        spArea= (Spinner) findViewById(R.id.spArea);
+        spCentroCosto= (Spinner) findViewById(R.id.spCentroCosto);
+
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
+        try {
+            dbHelper.importIfNotExist();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT DISTINCT afts.area, afts.centroCosto  FROM afts";
+
+        Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
+
+        while (cursor.moveToNext()) {
+            if(!listaCentroCosto.contains(cursor.getString(cursor.getColumnIndex("centroCosto")))){
+                listaCentroCosto.add(cursor.getString(cursor.getColumnIndex("centroCosto")));
+            }
+            listaAreas.add(cursor.getString(cursor.getColumnIndex("area")));
+        }
+
+        ArrayAdapter<String> spAreaAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, listaAreas);
+        spAreaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spArea.setAdapter(spAreaAdapter);
+
+        ArrayAdapter<String> spCentroCostoAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, listaCentroCosto);
+        spAreaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCentroCosto.setAdapter(spCentroCostoAdapter);
+    }
+
     public String[] CargarBD(String codigo){
         String inventario="No se encuentra";
         String inmovilizado="No se encuentra";
@@ -120,6 +160,10 @@ public class MainActivity extends AppCompatActivity {
         String centroCosto="";
         String [] resultados=new String[6];
 
+        spArea= (Spinner) findViewById(R.id.spArea);
+        spCentroCosto= (Spinner) findViewById(R.id.spCentroCosto);
+
+
         AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
         try {
             dbHelper.importIfNotExist();
@@ -128,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String sql="SELECT DISTINCT * FROM afts WHERE afts.inventario = \'"+codigo+"\'";
+
+//        String sql= "SELECT DISTINCT * FROM afts WHERE afts.inventario = '" +codigo+ "' AND afts.area ='" +spArea.getSelectedItem().toString()+ "' AND afts.centroCosto ='"+spCentroCosto.getSelectedItem().toString()+ "'";
 
         Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
         //TextView tv= findViewById(R.id.tvInventario);
