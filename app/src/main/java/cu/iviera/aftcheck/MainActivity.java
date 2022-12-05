@@ -332,6 +332,27 @@ public class MainActivity extends AppCompatActivity {
         adaptadorAFTs.notifyDataSetChanged();
     }
 
+    public void toastMsg(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    public void ResetAFTs(View view){
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
+        try {
+            dbHelper.importIfNotExist();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String sql="UPDATE afts SET checked=0 WHERE afts.checked = 1";
+
+        // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
+        dbHelper.getWritableDatabase().execSQL(sql);
+        LlenarAFTs();
+        ActualizarRecycler();
+        toastMsg("Estado de AFTS por defecto.");
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
