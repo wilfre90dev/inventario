@@ -1,7 +1,10 @@
 package cu.iviera.detecsa;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,22 +30,21 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
 
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull AdaptadorContactos.ViewHolderAFTs viewHolderAFTs, int i) {
-//        String linea1= "<u><b>No.Inv:</b></u> "+ listaContactos.get(i).getInventario();
-//        String linea2= "<u><b>Area:</b></u> "+ listaContactos.get(i).getArea();
-//        String linea3= "<u><b>Inmov:</b></u> "+ listaContactos.get(i).getInmovilizado();
-//        String linea4= "<u><b>C.Costo:</b></u> "+ listaContactos.get(i).getCentroCosto();
-//        String linea5= "<u><b>Descrip:</b></u> "+ listaContactos.get(i).getDescripcion();
-//
-//        viewHolderAFTs.linea1.setText(Html.fromHtml(linea1));
-//        viewHolderAFTs.linea2.setText(Html.fromHtml(linea2));
-//        viewHolderAFTs.linea3.setText(Html.fromHtml(linea3));
-//        viewHolderAFTs.linea4.setText(Html.fromHtml(linea4));
-//        viewHolderAFTs.linea5.setText(Html.fromHtml(linea5));
-//        if (listaContactos.get(i).isChecked==1) {
-//            viewHolderAFTs.imgCheck.setImageResource(R.drawable.checked);
-//        } else {
-//            viewHolderAFTs.imgCheck.setImageResource(R.drawable.nochecked);
-//        }
+        String linea=  listaContactos.get(i).getNombre();
+        String linea1= "<u><b>Nombre:</b></u> "+ listaContactos.get(i).getNombre();
+        String linea2= "<u><b>Area:</b></u> "+ listaContactos.get(i).getArea();
+        String linea3= "<u><b>Cargo:</b></u> "+ listaContactos.get(i).getCargo();
+        String linea4= "<u><b>Ubicacion:</b></u> "+ listaContactos.get(i).getUbicacion();
+        String linea5= "<u><b>Email:</b></u> "+ listaContactos.get(i).getEmail();
+
+        viewHolderAFTs.linea.setText(linea);
+        viewHolderAFTs.linea1.setText(Html.fromHtml(linea1));
+        viewHolderAFTs.linea2.setText(Html.fromHtml(linea2));
+        viewHolderAFTs.linea3.setText(Html.fromHtml(linea3));
+        viewHolderAFTs.linea4.setText(Html.fromHtml(linea4));
+        viewHolderAFTs.linea5.setText(Html.fromHtml(linea5));
+//        viewHolderAFTs.imgCheck.setImageResource(R.drawable.nochecked);
+
     }
 
     @Override
@@ -51,13 +53,14 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
     }
 
     public class ViewHolderAFTs extends RecyclerView.ViewHolder {
-        TextView linea1, linea2, linea3, linea4, linea5;
+        TextView linea, linea1, linea2, linea3, linea4, linea5;
         ImageView imgCheck;
 
         public ViewHolderAFTs(@NonNull @org.jetbrains.annotations.NotNull View itemView) {
             super(itemView);
 
             //Alimentar con la informacion existente
+            linea= (TextView) itemView.findViewById(R.id.tvLinea);
             linea1= (TextView) itemView.findViewById(R.id.tvLinea1);
             linea2= (TextView) itemView.findViewById(R.id.tvLinea2);
             linea3= (TextView) itemView.findViewById(R.id.tvLinea3);

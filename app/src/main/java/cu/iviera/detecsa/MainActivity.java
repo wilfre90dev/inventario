@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> listaEmail=new ArrayList<>();
     ArrayList<String> listaFijos=new ArrayList<>();
     RecyclerView recyclerContactos;
+    Button btnBuscar;
 
     Spinner spArea, spCentroCosto;
 
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        Button btnEscanear = findViewById(R.id.btnBuscar);
+        btnBuscar = findViewById(R.id.btnBuscar);
         acNombre= (AutoCompleteTextView) findViewById(R.id.acNombre);
         acArea= (AutoCompleteTextView) findViewById(R.id.acArea);
         acCargo= (AutoCompleteTextView) findViewById(R.id.acCargo);
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 //        LlenarSpinners();
         IniciarAutocompletes();
 
-//       ActualizarRecycler();
+       ActualizarRecycler();
 
 //        spArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
@@ -262,46 +264,15 @@ public class MainActivity extends AppCompatActivity {
         resultados[5] = centroCosto;
 
         return resultados;
-
     }
 
-/*    public String[] CargarBD(String codigo){
-        String provincia="No existe ninguna provincia";
-        String municipio="No existe ningún municipio";
-        String [] resultados=new String[2];
 
-        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "sitios.sqlite");
-        try {
-            dbHelper.importIfNotExist();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        // String sql="SELECT DISTINCT sitios.Provincia, sitios.Municipio FROM sitios WHERE sitios.BoxNo = \'"+codigo+"\'";
-        String sql="SELECT DISTINCT sitios.Provincia, sitios.Municipio FROM sitios WHERE sitios.BoxNo=?";
-
-        String [] select= {"Provincia", "Municipio"};
-        String [] where={codigo};
-
-        Cursor cursor=dbHelper.getWritableDatabase().query("sitios",select,"BoxNo=?",where, null,null,null, "1");
-
-        //Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql, codigo,null);
-        //TextView tv= findViewById(R.id.tvInventario);
-
-        while (cursor.moveToNext()) {
-            provincia = cursor.getString(cursor.getColumnIndex("Provincia"));
-            municipio = cursor.getString(cursor.getColumnIndex("Municipio"));
-
-            //System.out.println(provincia);
-        }
-        resultados[0] =provincia;
-        resultados[1] =municipio;
-        tvInventario.setText(codigo);
-        tvInmovilizado.setText(provincia);
-        tvCentroCosto.setText(municipio);
-        return resultados;
-
-    }*/
+//    public void Llamar(String numero, View view) {
+//        Intent callIntent = new Intent(Intent.ACTION_CALL);
+//        callIntent.setData(Uri.parse("tel:"+ numero));
+//        startActivity(callIntent);
+//    }
 
 
 
@@ -353,22 +324,22 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
-    public void ResetContactos(View view){
-        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "directorio.sqlite");
-        try {
-            dbHelper.importIfNotExist();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String sql="UPDATE Contactos SET checked=0 WHERE afts.checked = 1";
-
-        // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
-        dbHelper.getWritableDatabase().execSQL(sql);
-//        LlenarContactos();
-        ActualizarRecycler();
-        toastMsg("Estado de Contactos por defecto.");
-    }
+//    public void ResetContactos(View view){
+//        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "directorio.sqlite");
+//        try {
+//            dbHelper.importIfNotExist();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        String sql="UPDATE Contactos SET checked=0 WHERE afts.checked = 1";
+//
+//        // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
+//        dbHelper.getWritableDatabase().execSQL(sql);
+////        LlenarContactos();
+//        ActualizarRecycler();
+//        toastMsg("Estado de Contactos por defecto.");
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
