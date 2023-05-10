@@ -1,4 +1,4 @@
-package cu.iviera.aftcheck;
+package cu.iviera.detecsa;
 
 import android.content.ContentValues;
 import android.content.Context;

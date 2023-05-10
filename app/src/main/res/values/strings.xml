@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">AFT Check</string>
+    <string name="app_name">DETECSA</string>
     <string name="ivierasolution">iVieraSolutions</string>
-    <string name="escanear">Escanear</string>
+    <string name="escanear">Buscar</string>
     <string name="codigo">Código</string>
     <string name="guardar">Contacto</string>
 </resources>

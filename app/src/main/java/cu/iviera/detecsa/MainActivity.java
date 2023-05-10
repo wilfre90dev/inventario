@@ -1,17 +1,12 @@
-package cu.iviera.aftcheck;
+package cu.iviera.detecsa;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,13 +25,18 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int CODIGO_PERMISOS_CAMARA = 1, CODIGO_INTENT = 2;
-    private boolean permisoCamaraConcedido = false, permisoSolicitadoDesdeBoton = false;
+    private static final int CODIGO_INTENT = 2;
     private TextView tvInventario, tvInmovilizado, tvDescripcion, tvArea, tvCentroCosto;
-    ArrayList<AFTs> listaAFTs=new ArrayList<>();
+    ArrayList<Contacto> listaContactos =new ArrayList<>();
     ArrayList<String> listaCentroCosto=new ArrayList<>();
+    ArrayList<String> listaNombres=new ArrayList<>();
     ArrayList<String> listaAreas=new ArrayList<>();
-    RecyclerView recyclerAFTs;
+    ArrayList<String> listaCargos=new ArrayList<>();
+    ArrayList<String> listaUbicaciones=new ArrayList<>();
+    ArrayList<String> listaMovil=new ArrayList<>();
+    ArrayList<String> listaEmail=new ArrayList<>();
+    ArrayList<String> listaFijos=new ArrayList<>();
+    RecyclerView recyclerContactos;
 
     Spinner spArea, spCentroCosto;
 
@@ -45,15 +45,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        verificarYPedirPermisosDeCamara();
 
+        Button btnEscanear = findViewById(R.id.btnBuscar);
+        EditText etNombre= findViewById(R.id.acNombre);
+        EditText etArea= findViewById(R.id.acArea);
+        EditText etCargo= findViewById(R.id.acCargo);
+        EditText etUbicacion= findViewById(R.id.acUbicacion);
+        EditText etFijo= findViewById(R.id.acFijo);
+        EditText etMovil= findViewById(R.id.acMovil);
+        EditText etEmail= findViewById(R.id.acEmail);
 
-        Button btnEscanear = findViewById(R.id.btnEscanear);
-        tvInventario = findViewById(R.id.tvInventario);
-        tvInmovilizado = findViewById(R.id.tvInmovilizado);
-        tvDescripcion = findViewById(R.id.tvDescripcion);
-        tvArea = findViewById(R.id.tvArea);
-        tvCentroCosto = findViewById(R.id.tvCentroCosto);
+//        tvInventario = findViewById(R.id.tvInventario);
+//        tvInmovilizado = findViewById(R.id.tvInmovilizado);
+//        tvDescripcion = findViewById(R.id.tvDescripcion);
+//        tvArea = findViewById(R.id.tvArea);
+//        tvCentroCosto = findViewById(R.id.tvCentroCosto);
 
         //Se define el TabHost
         TabHost th=(TabHost) findViewById(R.id.tabHost);
@@ -62,14 +68,14 @@ public class MainActivity extends AppCompatActivity {
         th.setup();
         TabHost.TabSpec ts1=th.newTabSpec("tab1");
         ts1.setContent(R.id.tabEscanear);
-        ts1.setIndicator("ESCANEAR");
+        ts1.setIndicator("BUSCAR");
         th.addTab(ts1);
 
         //Configurando tab 2
         th.setup();
         TabHost.TabSpec ts2=th.newTabSpec("tab2");
         ts2.setContent(R.id.tabAfts);
-        ts2.setIndicator("AFTs");
+        ts2.setIndicator("CONTACTOS");
         th.addTab(ts2);
 
         //Configurando tab 3
@@ -79,64 +85,77 @@ public class MainActivity extends AppCompatActivity {
         ts3.setIndicator("OPCIONES");
         th.addTab(ts3);
 
-        //Configuracion del RecyclerView de AFTs
-        recyclerAFTs= (RecyclerView) findViewById(R.id.rvRecyclerId);
-        recyclerAFTs.setLayoutManager(new LinearLayoutManager(this));
+        //Configuracion del RecyclerView de Contacto
+        recyclerContactos= (RecyclerView) findViewById(R.id.rvRecyclerId);
+        recyclerContactos.setLayoutManager(new LinearLayoutManager(this));
 
         //Anadir linea para separar items
-        recyclerAFTs.addItemDecoration(new DividerItemDecoration(recyclerAFTs.getContext(), DividerItemDecoration.VERTICAL));
+        recyclerContactos.addItemDecoration(new DividerItemDecoration(recyclerContactos.getContext(), DividerItemDecoration.VERTICAL));
 
-        spArea= (Spinner) findViewById(R.id.spArea);
-        spCentroCosto= (Spinner) findViewById(R.id.spCentroCosto);
+//        spArea= (Spinner) findViewById(R.id.spArea);
+//        spCentroCosto= (Spinner) findViewById(R.id.spCentroCosto);
 
-        LlenarSpinners();
-        LlenarAFTs();
+//        TODO
+//        LlenarSpinners();
+        LlenarContactos();
 
-       ActualizarRecycler();
+//       ActualizarRecycler();
 
-       spArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               LlenarAFTs();
-           }
-
-           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
-
-           }
-       });
+//        spArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                LlenarContactos();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
     }
 
-    public void LlenarAFTs() {
-        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
+
+    public void LlenarContactos() {
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "directorio.sqlite");
         try {
             dbHelper.importIfNotExist();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String sql= "SELECT * FROM afts WHERE afts.area ='" +spArea.getSelectedItem().toString()+ "' AND afts.centroCosto ='"+spCentroCosto.getSelectedItem().toString()+ "'";
+        String sql= "SELECT * FROM directorio";
 
 
         Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
         //TextView tv= findViewById(R.id.tvInventario);
-        listaAFTs.clear();
+        listaContactos.clear();
 
         while (cursor.moveToNext()) {
-            listaAFTs.add(new AFTs(cursor.getString(cursor.getColumnIndex("inventario")),
-                    cursor.getString(cursor.getColumnIndex("inmovilizado")),
-                    cursor.getString(cursor.getColumnIndex("centroCosto")),
+            listaContactos.add(new Contacto(cursor.getString(cursor.getColumnIndex("nombre")),
+                    cursor.getString(cursor.getColumnIndex("sap")),
                     cursor.getString(cursor.getColumnIndex("area")),
-                    cursor.getString(cursor.getColumnIndex("descripcion")),
-                    cursor.getInt(cursor.getColumnIndex("checked"))));
+                    cursor.getString(cursor.getColumnIndex("cargo")),
+                    cursor.getString(cursor.getColumnIndex("ubicacion")),
+                    cursor.getString(cursor.getColumnIndex("fijo")),
+                    cursor.getString(cursor.getColumnIndex("movil")),
+                    cursor.getString(cursor.getColumnIndex("casa")),
+                    cursor.getString(cursor.getColumnIndex("email"))
+            ));
+            listaNombres.add(cursor.getString(cursor.getColumnIndex("nombre")));
+            listaAreas.add(cursor.getString(cursor.getColumnIndex("area")));
+            listaCargos.add(cursor.getString(cursor.getColumnIndex("cargo")));
+            listaUbicaciones.add(cursor.getString(cursor.getColumnIndex("ubicacion")));
+            listaFijos.add(cursor.getString(cursor.getColumnIndex("fijo")));
+            listaMovil.add(cursor.getString(cursor.getColumnIndex("movil")));
+            listaEmail.add(cursor.getString(cursor.getColumnIndex("email")));
         }
     }
 
     //Llena los Spinners de las opciones con un una lista de areas y centros de costo
     public void LlenarSpinners() {
 
-        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "directorio.sqlite");
         try {
             dbHelper.importIfNotExist();
         } catch (Exception e) {
@@ -174,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         String centroCosto="";
         String [] resultados=new String[6];
 
-        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "directorio.sqlite");
         try {
             dbHelper.importIfNotExist();
         } catch (Exception e) {
@@ -247,31 +266,8 @@ public class MainActivity extends AppCompatActivity {
 
     }*/
 
-    // Abre la activity de tabEscanear
-    private void escanear() {
-        Intent i = new Intent(MainActivity.this, ActivityEscanear.class);
-        startActivityForResult(i, CODIGO_INTENT);
-    }
 
-    // En dependencia del texto que tenga el boton v a tabEscanear o a buscar el resultado directo en la BD
-    public void AccionPrincipal(View view) {
-        EditText et=findViewById(R.id.editText);
-        Button btnEscanear=findViewById(R.id.btnEscanear);
 
-        if (btnEscanear.getText().equals("Escanear")) {
-            if (!permisoCamaraConcedido) {
-                Toast.makeText(MainActivity.this, "Por favor permite que la app acceda a la cámara", Toast.LENGTH_SHORT).show();
-                permisoSolicitadoDesdeBoton = true;
-                verificarYPedirPermisosDeCamara();
-                return;
-            }
-            escanear();
-        }
-        else{
-            BuscarPorCodigo(et.getText().toString());
-        }
-
-    }
     // Envia un correo de contacto
    public void Contact(View view) {
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
@@ -290,46 +286,29 @@ public class MainActivity extends AppCompatActivity {
         tvArea.setText(datos[4]);
         tvCentroCosto.setText(datos[5]);
 
-        ActualizarAFTs(codigo);
+        ActualizarContactos(codigo);
     }
 
-    // Cambia de estado entre Buscar y Escanear
-    public void CambiarEstado(View view){
-        Button btnEscanear=findViewById(R.id.btnEscanear);
-        EditText et=findViewById(R.id.editText);
-        if (btnEscanear.getText().equals("Escanear")){
-            btnEscanear.setText("Buscar");
-            //et.setVisibility(View.VISIBLE);
-            et.setText("");
-        }
-
-        else
-            btnEscanear.setText("Escanear");
-        //et.setVisibility(View.INVISIBLE);
-        et.setText("");
-        btnEscanear.setFocusable(true);
-    }
-
-    public void ActualizarAFTs (String codigo){
-        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
+    public void ActualizarContactos (String codigo){
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "direcotorio.sqlite");
         try {
             dbHelper.importIfNotExist();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String sql="UPDATE afts SET checked=1 WHERE afts.inventario = \'"+codigo+"\'";
+        String sql="UPDATE Contactos SET checked=1 WHERE afts.inventario = \'"+codigo+"\'";
 
        // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
         dbHelper.getWritableDatabase().execSQL(sql);
-        LlenarAFTs();
+        LlenarContactos();
         ActualizarRecycler();
     }
 
     public void ActualizarRecycler(){
-        AdaptadorAFTs adaptadorAFTs=new AdaptadorAFTs(listaAFTs);
-        recyclerAFTs.setAdapter(adaptadorAFTs);
-        adaptadorAFTs.notifyDataSetChanged();
+        AdaptadorContactos adaptadorContactos =new AdaptadorContactos(listaContactos);
+        recyclerContactos.setAdapter(adaptadorContactos);
+        adaptadorContactos.notifyDataSetChanged();
     }
 
     public void toastMsg(String msg) {
@@ -337,21 +316,21 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
-    public void ResetAFTs(View view){
-        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "afts.sqlite");
+    public void ResetContactos(View view){
+        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "directorio.sqlite");
         try {
             dbHelper.importIfNotExist();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String sql="UPDATE afts SET checked=0 WHERE afts.checked = 1";
+        String sql="UPDATE Contactos SET checked=0 WHERE afts.checked = 1";
 
         // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
         dbHelper.getWritableDatabase().execSQL(sql);
-        LlenarAFTs();
+        LlenarContactos();
         ActualizarRecycler();
-        toastMsg("Estado de AFTS por defecto.");
+        toastMsg("Estado de Contactos por defecto.");
     }
 
     @Override
@@ -379,49 +358,13 @@ public class MainActivity extends AppCompatActivity {
                     tvDescripcion.setText(datos[2]);
                     tvArea.setText(datos[4]);
                     tvCentroCosto.setText(datos[5]);
-                    ActualizarAFTs(codigo);
+                    ActualizarContactos(codigo);
                 }
             }
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case CODIGO_PERMISOS_CAMARA:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Escanear directamten solo si fue pedido desde el botón
-                    if (permisoSolicitadoDesdeBoton) {
-                        escanear();
-                    }
-                    permisoCamaraConcedido = true;
-                } else {
-                    permisoDeCamaraDenegado();
-                }
-                break;
-        }
-    }
 
-    private void verificarYPedirPermisosDeCamara() {
-        int estadoDePermiso = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA);
-        if (estadoDePermiso == PackageManager.PERMISSION_GRANTED) {
-            // En caso de que haya dado permisos ponemos la bandera en true
-            // y llamar al método
-            permisoCamaraConcedido = true;
-        } else {
-            // Si no, pedimos permisos. Ahora mira onRequestPermissionsResult
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.CAMERA},
-                    CODIGO_PERMISOS_CAMARA);
-        }
-    }
-
-
-    private void permisoDeCamaraDenegado() {
-        // Esto se llama cuando el usuario hace click en "Denegar" o
-        // cuando lo denegó anteriormente
-        Toast.makeText(MainActivity.this, "No puedes usar la camara si no das permiso", Toast.LENGTH_SHORT).show();
-    }
 
 
 }

@@ -1,4 +1,4 @@
-package cu.iviera.aftcheck;
+package cu.iviera.detecsa;
 
 import java.io.File;
 import java.io.FileInputStream;
