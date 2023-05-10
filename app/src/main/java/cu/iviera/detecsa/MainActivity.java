@@ -189,11 +189,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-    //Llena los Spinners de las opciones con un una lista de areas y centros de costo
-    public void LlenarSpinners() {
-
+    public void BuscarContactos(View view) {
         AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "directorio.sqlite");
         try {
             dbHelper.importIfNotExist();
@@ -201,27 +197,67 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String sql = "SELECT DISTINCT afts.area, afts.centroCosto  FROM afts";
+       String [] columns= {"nombre","sap","area","cargo","ubicacion","fijo","movil","casa","email",};
+       String [] sql= {acNombre.getText().toString(),acArea.getText().toString(),acCargo.getText().toString(),
+                        acUbicacion.getText().toString(), acFijo.getText().toString(),acFijo.getText().toString(), acMovil.getText().toString(),
+                        acEmail.getText().toString()};
 
-        Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
+
+
+//        Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
+        Cursor cursor = dbHelper.getWritableDatabase().query("directorio", null,null,
+                columns, null, null, null, null);
+        //TextView tv= findViewById(R.id.tvInventario);
+        listaContactos.clear();
 
         while (cursor.moveToNext()) {
-            if(!listaCentroCosto.contains(cursor.getString(cursor.getColumnIndex("centroCosto")))){
-                listaCentroCosto.add(cursor.getString(cursor.getColumnIndex("centroCosto")));
-            }
-            listaAreas.add(cursor.getString(cursor.getColumnIndex("area")));
+            listaContactos.add(new Contacto(cursor.getString(cursor.getColumnIndex("nombre")),
+                    cursor.getString(cursor.getColumnIndex("sap")),
+                    cursor.getString(cursor.getColumnIndex("area")),
+                    cursor.getString(cursor.getColumnIndex("cargo")),
+                    cursor.getString(cursor.getColumnIndex("ubicacion")),
+                    cursor.getString(cursor.getColumnIndex("fijo")),
+                    cursor.getString(cursor.getColumnIndex("movil")),
+                    cursor.getString(cursor.getColumnIndex("casa")),
+                    cursor.getString(cursor.getColumnIndex("email"))
+            ));
         }
+        System.out.println("Hola");
+        ActualizarRecycler();
 
-        ArrayAdapter<String> spAreaAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, listaAreas);
-        spAreaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spArea.setAdapter(spAreaAdapter);
-
-        ArrayAdapter<String> spCentroCostoAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, listaCentroCosto);
-        spAreaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spCentroCosto.setAdapter(spCentroCostoAdapter);
     }
+
+    //Llena los Spinners de las opciones con un una lista de areas y centros de costo
+//    public void LlenarSpinners() {
+//
+//        AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "directorio.sqlite");
+//        try {
+//            dbHelper.importIfNotExist();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        String sql = "SELECT DISTINCT afts.area, afts.centroCosto  FROM afts";
+//
+//        Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
+//
+//        while (cursor.moveToNext()) {
+//            if(!listaCentroCosto.contains(cursor.getString(cursor.getColumnIndex("centroCosto")))){
+//                listaCentroCosto.add(cursor.getString(cursor.getColumnIndex("centroCosto")));
+//            }
+//            listaAreas.add(cursor.getString(cursor.getColumnIndex("area")));
+//        }
+//
+//        ArrayAdapter<String> spAreaAdapter = new ArrayAdapter<String>(
+//                this, android.R.layout.simple_spinner_item, listaAreas);
+//        spAreaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spArea.setAdapter(spAreaAdapter);
+//
+//        ArrayAdapter<String> spCentroCostoAdapter = new ArrayAdapter<String>(
+//                this, android.R.layout.simple_spinner_item, listaCentroCosto);
+//        spAreaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spCentroCosto.setAdapter(spCentroCostoAdapter);
+//    }
 
     public String[] CargarBD(String codigo){
         String inventario="No se encuentra";
@@ -279,8 +315,8 @@ public class MainActivity extends AppCompatActivity {
     // Envia un correo de contacto
    public void Contact(View view) {
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto","ines.viera@etecsa.cu,alexy.lorenzo@etecsa.cu", null));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Contacto de AFT Check");
+                "mailto","ines.viera@etecsa.cu,secej.vpiv@etecsa.cu", null));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Contacto de DETECSA");
         startActivity(Intent.createChooser(intent, "Elija un cliente de correo:"));
     }
 
@@ -294,10 +330,10 @@ public class MainActivity extends AppCompatActivity {
 //        tvArea.setText(datos[4]);
 //        tvCentroCosto.setText(datos[5]);
 
-        ActualizarContactos(codigo);
+//        ActualizarContactos(codigo);
     }
 
-    public void ActualizarContactos (String codigo){
+    public void Buscar (){
         AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "direcotorio.sqlite");
         try {
             dbHelper.importIfNotExist();
@@ -305,7 +341,13 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String sql="UPDATE Contactos SET checked=1 WHERE afts.inventario = \'"+codigo+"\'";
+        String sql="";
+
+//        if (acNombre.getText().toString() == ""){
+//            sql+=
+//        }
+
+//        String sql="UPDATE Contactos SET checked=1 WHERE afts.inventario = \'"+codigo+"\'";
 
        // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
         dbHelper.getWritableDatabase().execSQL(sql);
@@ -341,36 +383,36 @@ public class MainActivity extends AppCompatActivity {
 //        toastMsg("Estado de Contactos por defecto.");
 //    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == CODIGO_INTENT) {
-            if (resultCode == Activity.RESULT_OK) {
-                if (data != null) {
-                    String codigo = data.getStringExtra("codigo");
-                    if(codigo.contains(":")){
-                        /*  No. Inventario: 20_242_005768
-                            Inmovilizado: 300496964
-                            Centro Costo: 50OP200243
-                            Area: STA105
-                            Descripcion: BEEPERS PIN 5159*/
-
-                    //Divide el QR escaneado por saltos de linea, quedando en la primera posicion "No. Inventario: 20_242_005768", despues se elimina "No. Inventario: "
-                        String inventario = codigo.split("\n")[0].replace("No. Inventario: ", "");
-                        codigo=inventario;
-                    }
-
-                    String [] datos= CargarBD(codigo);
-
-//                    tvInventario.setText(codigo);
-//                    tvInmovilizado.setText(datos[1]);
-//                    tvDescripcion.setText(datos[2]);
-//                    tvArea.setText(datos[4]);
-//                    tvCentroCosto.setText(datos[5]);
-                    ActualizarContactos(codigo);
-                }
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if (requestCode == CODIGO_INTENT) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                if (data != null) {
+//                    String codigo = data.getStringExtra("codigo");
+//                    if(codigo.contains(":")){
+//                        /*  No. Inventario: 20_242_005768
+//                            Inmovilizado: 300496964
+//                            Centro Costo: 50OP200243
+//                            Area: STA105
+//                            Descripcion: BEEPERS PIN 5159*/
+//
+//                    //Divide el QR escaneado por saltos de linea, quedando en la primera posicion "No. Inventario: 20_242_005768", despues se elimina "No. Inventario: "
+//                        String inventario = codigo.split("\n")[0].replace("No. Inventario: ", "");
+//                        codigo=inventario;
+//                    }
+//
+//                    String [] datos= CargarBD(codigo);
+//
+////                    tvInventario.setText(codigo);
+////                    tvInmovilizado.setText(datos[1]);
+////                    tvDescripcion.setText(datos[2]);
+////                    tvArea.setText(datos[4]);
+////                    tvCentroCosto.setText(datos[5]);
+//                    ActualizarContactos(codigo);
+//                }
+//            }
+//        }
+//    }
 
 
 
