@@ -268,11 +268,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//    public void Llamar(String numero, View view) {
-//        Intent callIntent = new Intent(Intent.ACTION_CALL);
-//        callIntent.setData(Uri.parse("tel:"+ numero));
-//        startActivity(callIntent);
-//    }
+    public void Llamar(View view) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:"+ 58129882));
+        startActivity(callIntent);
+    }
 
 
 

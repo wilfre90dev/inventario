@@ -1,7 +1,5 @@
 package cu.iviera.detecsa;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -31,11 +29,12 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull AdaptadorContactos.ViewHolderAFTs viewHolderAFTs, int i) {
         String linea=  listaContactos.get(i).getNombre();
-        String linea1= "<u><b>Nombre:</b></u> "+ listaContactos.get(i).getNombre();
-        String linea2= "<u><b>Area:</b></u> "+ listaContactos.get(i).getArea();
-        String linea3= "<u><b>Cargo:</b></u> "+ listaContactos.get(i).getCargo();
-        String linea4= "<u><b>Ubicacion:</b></u> "+ listaContactos.get(i).getUbicacion();
-        String linea5= "<u><b>Email:</b></u> "+ listaContactos.get(i).getEmail();
+        String linea1= "<u><b>Area:</b></u> "+ listaContactos.get(i).getArea();
+        String linea2= "<u><b>Cargo:</b></u> "+ listaContactos.get(i).getCargo();
+        String linea3= "<u><b>Ubicacion:</b></u> "+ listaContactos.get(i).getUbicacion();
+        String linea4= "<u><b>Email:</b></u> "+ listaContactos.get(i).getEmail();
+        String linea5= "<u><b>Fijo:</b></u> "+ listaContactos.get(i).getFijo();
+        String linea6= "<u><b>Movil:</b></u> "+ listaContactos.get(i).getMovil();
 
         viewHolderAFTs.linea.setText(linea);
         viewHolderAFTs.linea1.setText(Html.fromHtml(linea1));
@@ -43,6 +42,7 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
         viewHolderAFTs.linea3.setText(Html.fromHtml(linea3));
         viewHolderAFTs.linea4.setText(Html.fromHtml(linea4));
         viewHolderAFTs.linea5.setText(Html.fromHtml(linea5));
+        viewHolderAFTs.linea6.setText(Html.fromHtml(linea6));
 //        viewHolderAFTs.imgCheck.setImageResource(R.drawable.nochecked);
 
     }
@@ -53,7 +53,7 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
     }
 
     public class ViewHolderAFTs extends RecyclerView.ViewHolder {
-        TextView linea, linea1, linea2, linea3, linea4, linea5;
+        TextView linea, linea1, linea2, linea3, linea4, linea5, linea6;
         ImageView imgCheck;
 
         public ViewHolderAFTs(@NonNull @org.jetbrains.annotations.NotNull View itemView) {
@@ -66,7 +66,8 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
             linea3= (TextView) itemView.findViewById(R.id.tvLinea3);
             linea4= (TextView) itemView.findViewById(R.id.tvLinea4);
             linea5= (TextView) itemView.findViewById(R.id.tvLinea5);
-            imgCheck= (ImageView) itemView.findViewById(R.id.imgCheck);
+            linea6= (TextView) itemView.findViewById(R.id.tvLinea6);
+//            imgCheck= (ImageView) itemView.findViewById(R.id.imgCheck);
         }
 
     }
