@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,11 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_INTENT = 2;
-    private TextView tvInventario, tvInmovilizado, tvDescripcion, tvArea, tvCentroCosto;
+    private AutoCompleteTextView acNombre, acArea, acUbicacion, acCargo, acFijo, acMovil, acEmail;
     ArrayList<Contacto> listaContactos =new ArrayList<>();
     ArrayList<String> listaCentroCosto=new ArrayList<>();
     ArrayList<String> listaNombres=new ArrayList<>();
@@ -47,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnEscanear = findViewById(R.id.btnBuscar);
-        EditText etNombre= findViewById(R.id.acNombre);
-        EditText etArea= findViewById(R.id.acArea);
-        EditText etCargo= findViewById(R.id.acCargo);
-        EditText etUbicacion= findViewById(R.id.acUbicacion);
-        EditText etFijo= findViewById(R.id.acFijo);
-        EditText etMovil= findViewById(R.id.acMovil);
-        EditText etEmail= findViewById(R.id.acEmail);
+        acNombre= (AutoCompleteTextView) findViewById(R.id.acNombre);
+        acArea= (AutoCompleteTextView) findViewById(R.id.acArea);
+        acCargo= (AutoCompleteTextView) findViewById(R.id.acCargo);
+        acUbicacion= (AutoCompleteTextView) findViewById(R.id.acUbicacion);
+        acFijo= (AutoCompleteTextView) findViewById(R.id.acFijo);
+        acMovil= (AutoCompleteTextView) findViewById(R.id.acMovil);
+        acEmail= (AutoCompleteTextView) findViewById(R.id.acEmail);
 
 //        tvInventario = findViewById(R.id.tvInventario);
 //        tvInmovilizado = findViewById(R.id.tvInmovilizado);
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        TODO
 //        LlenarSpinners();
-        LlenarContactos();
+        IniciarAutocompletes();
 
 //       ActualizarRecycler();
 
@@ -116,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void LlenarContactos() {
+    public void IniciarAutocompletes() {
         AssetDatabaseHelper dbHelper = new AssetDatabaseHelper(getBaseContext(), "directorio.sqlite");
         try {
             dbHelper.importIfNotExist();
@@ -150,7 +153,41 @@ public class MainActivity extends AppCompatActivity {
             listaMovil.add(cursor.getString(cursor.getColumnIndex("movil")));
             listaEmail.add(cursor.getString(cursor.getColumnIndex("email")));
         }
+
+        LlenarAutocomplete(listaNombres, acNombre);
+        LlenarAutocomplete(listaAreas, acArea);
+        LlenarAutocomplete(listaCargos, acCargo);
+        LlenarAutocomplete(listaUbicaciones, acUbicacion);
+        LlenarAutocomplete(listaFijos, acFijo);
+        LlenarAutocomplete(listaMovil, acMovil);
+        LlenarAutocomplete(listaEmail, acEmail);
+
     }
+
+
+
+    public void LlenarAutocomplete(ArrayList<String> list, AutoCompleteTextView ac)
+    {
+
+        // Create a new LinkedHashSet
+        Set<String> set = new LinkedHashSet<>();
+
+        // Add the elements to set and remove null or empty strings
+        set.addAll(list);
+        set.remove(null);
+        set.remove("");
+
+
+        String[] arr = new String[set.size()];
+        arr= set.toArray(arr);
+
+        // Fill Autocomplete elements
+        ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, arr);
+        ac.setAdapter(adapter);
+    }
+
+
+
 
     //Llena los Spinners de las opciones con un una lista de areas y centros de costo
     public void LlenarSpinners() {
@@ -280,11 +317,11 @@ public class MainActivity extends AppCompatActivity {
     public void BuscarPorCodigo(String codigo){
         String [] datos= CargarBD(codigo);
 
-        tvInventario.setText(codigo);
-        tvInmovilizado.setText(datos[1]);
-        tvDescripcion.setText(datos[2]);
-        tvArea.setText(datos[4]);
-        tvCentroCosto.setText(datos[5]);
+//        tvInventario.setText(codigo);
+//        tvInmovilizado.setText(datos[1]);
+//        tvDescripcion.setText(datos[2]);
+//        tvArea.setText(datos[4]);
+//        tvCentroCosto.setText(datos[5]);
 
         ActualizarContactos(codigo);
     }
@@ -301,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
 
        // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
         dbHelper.getWritableDatabase().execSQL(sql);
-        LlenarContactos();
+//        LlenarContactos();
         ActualizarRecycler();
     }
 
@@ -328,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Cursor cursor=dbHelper.getWritableDatabase().rawQuery(sql,null);
         dbHelper.getWritableDatabase().execSQL(sql);
-        LlenarContactos();
+//        LlenarContactos();
         ActualizarRecycler();
         toastMsg("Estado de Contactos por defecto.");
     }
@@ -353,11 +390,11 @@ public class MainActivity extends AppCompatActivity {
 
                     String [] datos= CargarBD(codigo);
 
-                    tvInventario.setText(codigo);
-                    tvInmovilizado.setText(datos[1]);
-                    tvDescripcion.setText(datos[2]);
-                    tvArea.setText(datos[4]);
-                    tvCentroCosto.setText(datos[5]);
+//                    tvInventario.setText(codigo);
+//                    tvInmovilizado.setText(datos[1]);
+//                    tvDescripcion.setText(datos[2]);
+//                    tvArea.setText(datos[4]);
+//                    tvCentroCosto.setText(datos[5]);
                     ActualizarContactos(codigo);
                 }
             }
