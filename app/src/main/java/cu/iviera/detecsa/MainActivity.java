@@ -197,16 +197,24 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-       String [] columns= {"nombre","sap","area","cargo","ubicacion","fijo","movil","casa","email",};
-       String [] sql= {acNombre.getText().toString(),acArea.getText().toString(),acCargo.getText().toString(),
-                        acUbicacion.getText().toString(), acFijo.getText().toString(),acFijo.getText().toString(), acMovil.getText().toString(),
+       String [] columns= {"area","nombre","cargo","ubicacion","fijo","movil","email"};
+       String selection= "area=? AND nombre=? AND cargo=? AND ubicacion=? AND fijo=? AND movil=? AND email=?";
+       String [] sql= {acArea.getText().toString(), acNombre.getText().toString(),acCargo.getText().toString(),
+                        acUbicacion.getText().toString(), acFijo.getText().toString(),acMovil.getText().toString(),
                         acEmail.getText().toString()};
 
 
 
 //        Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
-        Cursor cursor = dbHelper.getWritableDatabase().query("directorio", null,null,
-                columns, null, null, null, null);
+        Cursor cursor = dbHelper.getWritableDatabase().query(
+                "directorio",
+                null,
+                selection,
+                sql,
+                null,
+                null,
+                null,
+                null);
         //TextView tv= findViewById(R.id.tvInventario);
         listaContactos.clear();
 
