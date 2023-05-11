@@ -197,25 +197,36 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-       String [] columns= {"area","nombre","cargo","ubicacion","fijo","movil","email"};
-       String selection= "area=? AND nombre=? AND cargo=? AND ubicacion=? AND fijo=? AND movil=? AND email=?";
-       String [] sql= {acArea.getText().toString(), acNombre.getText().toString(),acCargo.getText().toString(),
-                        acUbicacion.getText().toString(), acFijo.getText().toString(),acMovil.getText().toString(),
-                        acEmail.getText().toString()};
+        String selection="SELECT * FROM directorio WHERE";
+
+       if(!acArea.getText().toString().isEmpty()){
+           selection+= " and directorio.area=\'"+acArea.getText().toString()+"\'";
+       }
+        if(!acNombre.getText().toString().isEmpty()){
+            selection+= " and directorio.nombre=\'"+acNombre.getText().toString()+"\'";
+        }
+        if(!acCargo.getText().toString().isEmpty()){
+            selection+= " and directorio.cargo=\'"+acCargo.getText().toString()+"\'";
+        }
+        if(!acUbicacion.getText().toString().isEmpty()){
+            selection+= " and directorio.ubicacion=\'"+acUbicacion.getText().toString()+"\'";
+        }
+        if(!acFijo.getText().toString().isEmpty()){
+            selection+= " and directorio.fijo=\'"+acFijo.getText().toString()+"\'";
+        }
+        if(!acMovil.getText().toString().isEmpty()){
+            selection+= " and directorio.movil=\'"+acMovil.getText().toString()+"\'";
+        }
+        if(!acEmail.getText().toString().isEmpty()){
+            selection+= " and directorio.email=\'"+acEmail.getText().toString()+"\'";
+        }
+
+        if(selection.contains("WHERE and")){
+            selection=selection.replace("WHERE and", "WHERE");
+        }
 
 
-
-//        Cursor cursor = dbHelper.getWritableDatabase().rawQuery(sql, null);
-        Cursor cursor = dbHelper.getWritableDatabase().query(
-                "directorio",
-                null,
-                selection,
-                sql,
-                null,
-                null,
-                null,
-                null);
-        //TextView tv= findViewById(R.id.tvInventario);
+        Cursor cursor = dbHelper.getWritableDatabase().rawQuery(selection,null);
         listaContactos.clear();
 
         while (cursor.moveToNext()) {
@@ -230,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
                     cursor.getString(cursor.getColumnIndex("email"))
             ));
         }
-        System.out.println("Hola");
         ActualizarRecycler();
 
     }
