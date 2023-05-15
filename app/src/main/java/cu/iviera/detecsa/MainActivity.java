@@ -2,10 +2,14 @@ package cu.iviera.detecsa;
 
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -233,11 +237,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void Llamar(View view) {
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:"+ 58129882));
-        startActivity(callIntent);
-    }
+    public void Llamar(View view, String telefono) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+telefono));
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // Si el permiso no está concedido, solicítalo
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+                } else {
+                    // Si el permiso ya está concedido, inicia la llamada
+                    startActivity(intent);
+                }
+            }
+
 
 
 
