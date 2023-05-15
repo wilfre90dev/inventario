@@ -23,10 +23,10 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_INTENT = 2;
-    private AutoCompleteTextView acNombre, acArea, acUbicacion, acCargo, acFijo, acMovil, acEmail;
+    private AutoCompleteTextView acNombre, acSap, acArea, acUbicacion, acCargo, acFijo, acMovil, acEmail;
     ArrayList<Contacto> listaContactos =new ArrayList<>();
-    ArrayList<String> listaCentroCosto=new ArrayList<>();
     ArrayList<String> listaNombres=new ArrayList<>();
+    ArrayList<String> listaSap=new ArrayList<>();
     ArrayList<String> listaAreas=new ArrayList<>();
     ArrayList<String> listaCargos=new ArrayList<>();
     ArrayList<String> listaUbicaciones=new ArrayList<>();
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnBuscar = findViewById(R.id.btnBuscar);
         acNombre= (AutoCompleteTextView) findViewById(R.id.acNombre);
+        acSap= (AutoCompleteTextView) findViewById(R.id.acSap);
         acArea= (AutoCompleteTextView) findViewById(R.id.acArea);
         acCargo= (AutoCompleteTextView) findViewById(R.id.acCargo);
         acUbicacion= (AutoCompleteTextView) findViewById(R.id.acUbicacion);
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     cursor.getString(cursor.getColumnIndex("email"))
             ));
             listaNombres.add(cursor.getString(cursor.getColumnIndex("nombre")));
+            listaSap.add(cursor.getString(cursor.getColumnIndex("sap")));
             listaAreas.add(cursor.getString(cursor.getColumnIndex("area")));
             listaCargos.add(cursor.getString(cursor.getColumnIndex("cargo")));
             listaUbicaciones.add(cursor.getString(cursor.getColumnIndex("ubicacion")));
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         LlenarAutocomplete(listaNombres, acNombre);
+        LlenarAutocomplete(listaSap, acSap);
         LlenarAutocomplete(listaAreas, acArea);
         LlenarAutocomplete(listaCargos, acCargo);
         LlenarAutocomplete(listaUbicaciones, acUbicacion);
@@ -169,6 +172,9 @@ public class MainActivity extends AppCompatActivity {
        if(!acArea.getText().toString().isEmpty()){
            selection+= " and directorio.area=\'"+acArea.getText().toString()+"\'";
        }
+        if(!acSap.getText().toString().isEmpty()){
+            selection+= " and directorio.sap=\'"+acSap.getText().toString()+"\'";
+        }
         if(!acNombre.getText().toString().isEmpty()){
             selection+= " and directorio.nombre=\'"+acNombre.getText().toString()+"\'";
         }

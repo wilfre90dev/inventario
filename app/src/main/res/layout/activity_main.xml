@@ -49,7 +49,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
                         android:text="Nombre:"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <AutoCompleteTextView
@@ -59,7 +59,28 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:completionThreshold="1"
-                        android:inputType="textAutoComplete" />
+                        android:inputType="textAutoComplete"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvSap"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="6dp"
+                        android:text="SAP:"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/acSap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:completionThreshold="1"
+                        android:inputType="number|textAutoComplete"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tvArea"
@@ -68,7 +89,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
                         android:text="Area:"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <AutoCompleteTextView
@@ -78,7 +99,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:completionThreshold="1"
-                        android:inputType="textAutoComplete" />
+                        android:inputType="textAutoComplete"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tvCargo"
@@ -88,7 +110,7 @@
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="4dp"
                         android:text="Cargo:"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <AutoCompleteTextView
@@ -98,7 +120,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:completionThreshold="1"
-                        android:inputType="textAutoComplete" />
+                        android:inputType="textAutoComplete"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tvUbicacion"
@@ -107,7 +130,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
                         android:text="Ubicación:"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <AutoCompleteTextView
@@ -117,7 +140,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:completionThreshold="1"
-                        android:inputType="textAutoComplete" />
+                        android:inputType="textAutoComplete"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tvFijo"
@@ -126,7 +150,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
                         android:text="Teléfono Fijo:"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <AutoCompleteTextView
@@ -136,7 +160,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:completionThreshold="1"
-                        android:inputType="textAutoComplete|phone" />
+                        android:inputType="textAutoComplete|phone"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tvMovil"
@@ -145,7 +170,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
                         android:text="Teléfono Móvil:"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <AutoCompleteTextView
@@ -155,7 +180,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:completionThreshold="1"
-                        android:inputType="textAutoComplete|phone" />
+                        android:inputType="textAutoComplete|phone"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tvEmail"
@@ -164,7 +190,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
                         android:text="Email:"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <AutoCompleteTextView
@@ -174,7 +200,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:completionThreshold="1"
-                        android:inputType="textAutoComplete|textEmailAddress" />
+                        android:inputType="textAutoComplete|textEmailAddress"
+                        android:textSize="14sp" />
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
