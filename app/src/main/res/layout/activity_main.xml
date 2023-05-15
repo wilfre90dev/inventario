@@ -58,6 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
+                        android:completionThreshold="1"
                         android:inputType="textAutoComplete" />
 
                     <TextView
@@ -76,12 +77,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
+                        android:completionThreshold="1"
                         android:inputType="textAutoComplete" />
 
                     <TextView
                         android:id="@+id/tvCargo"
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="4dp"
@@ -95,6 +97,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
+                        android:completionThreshold="1"
                         android:inputType="textAutoComplete" />
 
                     <TextView
@@ -113,12 +116,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
+                        android:completionThreshold="1"
                         android:inputType="textAutoComplete" />
 
                     <TextView
                         android:id="@+id/tvFijo"
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
                         android:text="Teléfono Fijo:"
@@ -131,7 +135,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:inputType="textAutoComplete" />
+                        android:completionThreshold="1"
+                        android:inputType="textAutoComplete|phone" />
 
                     <TextView
                         android:id="@+id/tvMovil"
@@ -149,7 +154,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:inputType="textAutoComplete" />
+                        android:completionThreshold="1"
+                        android:inputType="textAutoComplete|phone" />
 
                     <TextView
                         android:id="@+id/tvEmail"
@@ -167,7 +173,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:inputType="textAutoComplete" />
+                        android:completionThreshold="1"
+                        android:inputType="textAutoComplete|textEmailAddress" />
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
