@@ -6,7 +6,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,7 +44,6 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
         viewHolderAFTs.linea5.setText(Html.fromHtml(linea5));
         viewHolderAFTs.linea6.setText(Html.fromHtml(linea6));
         viewHolderAFTs.linea7.setText(Html.fromHtml(linea7));
-//        viewHolderAFTs.imgCheck.setImageResource(R.drawable.nochecked);
 
     }
 
@@ -56,7 +54,6 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
 
     public class ViewHolderAFTs extends RecyclerView.ViewHolder {
         TextView linea, linea1, linea2, linea3, linea4, linea5, linea6, linea7;
-        ImageView imgCheck;
 
         public ViewHolderAFTs(@NonNull @org.jetbrains.annotations.NotNull View itemView) {
             super(itemView);
@@ -70,7 +67,6 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
             linea5= (TextView) itemView.findViewById(R.id.tvLinea5);
             linea6= (TextView) itemView.findViewById(R.id.tvLinea6);
             linea7= (TextView) itemView.findViewById(R.id.tvLinea7);
-//            imgCheck= (ImageView) itemView.findViewById(R.id.imgCheck);
         }
 
     }

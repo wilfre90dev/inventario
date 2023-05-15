@@ -134,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
         LlenarAutocomplete(listaMovil, acMovil);
         LlenarAutocomplete(listaEmail, acEmail);
 
+        ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, listaEmail);
+        acEmail.setAdapter(adapter);
+
     }
 
 
@@ -224,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (listaContactos.size() > 1) {
                 toastMsg("¡Se han encontrado " + listaContactos.size() + " trabajadores! \n Vaya a la pestaña Contactos para ver los resultados.");
             } else {
-                toastMsg("¡Oops, no se han encontrado trabajadores, intente de nuevo!");
+                toastMsg("¡Ups, no se han encontrado trabajadores, intente de nuevo!");
             }
         }
     }
