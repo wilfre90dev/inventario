@@ -33,14 +33,14 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="40dp">
+                android:paddingTop="50dp">
 
                 <LinearLayout
                     android:id="@+id/tabEscanear"
-                    android:textColor="#BA2C2C"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:textColor="#BA2C2C">
 
                     <TextView
                         android:id="@+id/tvNombre"
@@ -200,7 +200,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rvRecyclerId"
                         android:layout_width="match_parent"
-                        android:layout_height="580dp"
+                        android:layout_height="540dp"
                         tools:listitem="@layout/recycler_view_item" />
                 </LinearLayout>
 
@@ -212,8 +212,8 @@
 
                     <ImageView
                         android:id="@+id/imgIcon"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="100dp"
                         android:scaleType="fitXY"
@@ -225,7 +225,7 @@
                         android:layout_gravity="center"
                         android:text="DETECSA \n FORUM 2023"
                         android:textAlignment="center"
-                        android:textSize="12sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <android.support.constraint.ConstraintLayout

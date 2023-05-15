@@ -35,6 +35,7 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
         String linea4= "<u><b>Email:</b></u> "+ listaContactos.get(i).getEmail();
         String linea5= "<u><b>Fijo:</b></u> "+ listaContactos.get(i).getFijo();
         String linea6= "<u><b>Movil:</b></u> "+ listaContactos.get(i).getMovil();
+        String linea7= "<u><b>SAP:</b></u> "+ listaContactos.get(i).getSap();
 
         viewHolderAFTs.linea.setText(linea);
         viewHolderAFTs.linea1.setText(Html.fromHtml(linea1));
@@ -43,6 +44,7 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
         viewHolderAFTs.linea4.setText(Html.fromHtml(linea4));
         viewHolderAFTs.linea5.setText(Html.fromHtml(linea5));
         viewHolderAFTs.linea6.setText(Html.fromHtml(linea6));
+        viewHolderAFTs.linea7.setText(Html.fromHtml(linea7));
 //        viewHolderAFTs.imgCheck.setImageResource(R.drawable.nochecked);
 
     }
@@ -53,7 +55,7 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
     }
 
     public class ViewHolderAFTs extends RecyclerView.ViewHolder {
-        TextView linea, linea1, linea2, linea3, linea4, linea5, linea6;
+        TextView linea, linea1, linea2, linea3, linea4, linea5, linea6, linea7;
         ImageView imgCheck;
 
         public ViewHolderAFTs(@NonNull @org.jetbrains.annotations.NotNull View itemView) {
@@ -67,6 +69,7 @@ public class AdaptadorContactos extends RecyclerView.Adapter<AdaptadorContactos.
             linea4= (TextView) itemView.findViewById(R.id.tvLinea4);
             linea5= (TextView) itemView.findViewById(R.id.tvLinea5);
             linea6= (TextView) itemView.findViewById(R.id.tvLinea6);
+            linea7= (TextView) itemView.findViewById(R.id.tvLinea7);
 //            imgCheck= (ImageView) itemView.findViewById(R.id.imgCheck);
         }
 
