@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
     // Envia un correo de contacto
    public void Contact(View view) {
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto","ines.viera@etecsa.cu,secej.vpiv@etecsa.cu", null));
+                "mailto","ines.viera@etecsa.cu,secej.vpiv@etecsa.cu,amarilys.ruiz@etecsa.cu", null));
         intent.putExtra(Intent.EXTRA_SUBJECT, "Contacto de DETECSA");
         startActivity(Intent.createChooser(intent, "Elija un cliente de correo:"));
     }
